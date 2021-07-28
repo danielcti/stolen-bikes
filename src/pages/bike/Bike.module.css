@@ -1,0 +1,13 @@
+.customImg {
+  width: 100% !important;
+  position: relative !important;
+  height: unset !important;
+  max-height: 70vh !important;
+}
+
+.unsetImg {
+  width: 100%;
+}
+.unsetImg > div {
+  position: unset !important;
+}

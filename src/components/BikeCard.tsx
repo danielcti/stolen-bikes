@@ -1,4 +1,6 @@
 import { format } from "date-fns";
+import Link from 'next/link';
+import Image from 'next/image';
 
 interface Bike {
   date_stolen: number;
@@ -27,18 +29,22 @@ function BikeCard({ data }: BikeProps) {
     return format(date, "dd/MM/yyyy 'at' HH:mm");
   }
   return (
-    <a href={`/bike/${data.id}`}>
-      <figure className="md:flex bg-white rounded-xl p-8 md:p-0 mt-6 border-black border-2">
-        <div className="md:w-1/4">
+    <Link href={`/bike/${data.id}`}>
+      <figure className="md:flex bg-white rounded-xl p-8 md:p-0 mt-6 border-black border-2 cursor-pointer">
+        <div className="w-48 h-48 relative">
           {data.large_img ? (
-            <img
+            <Image
               src={data.large_img}
-              className="object-cover rounded-xl h-48 w-full md:h-48 md:w-48"
+              layout="fill"
+              objectFit='cover'
+              className="rounded-l-xl"
             />
           ) : (
-            <img
+            <Image
               src="/default_bike.jpeg"
-              className="object-cover rounded-xl h-48 w-full md:h-48 md:w-48"
+              layout="fill"
+              objectFit='cover'
+              className="rounded-l-xl"
             />
           )}
         </div>
@@ -52,7 +58,7 @@ function BikeCard({ data }: BikeProps) {
           </div>
         </div>
       </figure>
-    </a>
+    </Link>
   );
 }
 

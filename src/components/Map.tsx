@@ -9,6 +9,7 @@ import {
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import api from "../services/api";
+import Link from 'next/link';
 
 interface Bike {
   date_stolen: number;
@@ -64,7 +65,7 @@ const Map = () => {
       >
         <Popup>
           <h3>Location: {bike?.stolen_record?.location}</h3>
-          <a href={`/bike/${bike.id}`}>View more details</a>
+          <Link href={`/bike/${bike.id}`}>View more details</Link>
         </Popup>
       </Marker>
     );

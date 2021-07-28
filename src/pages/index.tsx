@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import BikeCard from "../components/BikeCard";
 import api from "../services/api";
+import Link from "next/link";
 
 interface Bike {
   date_stolen: number;
@@ -44,8 +45,8 @@ function Home() {
   useEffect(() => {
     const filtered = bikesData.filter((bike) => {
       return (
-        bike.title.toLowerCase().includes(searchInput.toLowerCase()) ||
-        bike.stolen_location.toLowerCase().includes(searchInput.toLowerCase())
+        bike.title?.toLowerCase().includes(searchInput.toLowerCase()) ||
+        bike.stolen_location?.toLowerCase().includes(searchInput.toLowerCase())
       );
     });
     setFilteredBikesData(filtered);
@@ -64,26 +65,32 @@ function Home() {
   }
 
   return (
-    <div className="bg-gray-100 pb-6">
-      <section className="fixed flex justify-center flex-col items-center w-full bg-gray-100 py-4">
-        <h1 className="font-bold text-3xl">Stolen Bikes Reports</h1>
-        <a className="text-blue-600 block mt-4 underline" href="/map">
-          View stolen bikes map
-        </a>
+    <div className="bg-gray-925 pb-6 ">
+      <section className="fixed flex justify-center flex-col items-center w-full bg-gray-925 py-4 z-20">
+        <h1 className="font-bold text-3xl text-indigo-50">Stolen Bikes Reports</h1>
+        <Link href="/map">
+          <a className="text-blue-600 block mt-4 underline">
+            View stolen bikes map
+          </a>
+        </Link>
+
         <input
-          className="bg-gray-800 border-none rounded px-6 py-3 mt-4  placeholder-gray-500 text-gray-300"
+          className="bg-indigo-50 border-none rounded px-6 py-3 mt-4 placeholder-gray-950 text-gray-800"
           placeholder="Search for bikes titles or locations"
           type="text"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
         />
         {!isLoading && (
-          <div className="mt-6">
+          <div className="mt-6 text-indigo-50">
             <button onClick={() => handlePageChange("previous")}>
               Previous
             </button>
             <span className="mx-8">
-              Page <span className="font-bold">{page}</span> of <span className="font-bold">{Math.ceil(filteredBikesData.length / 10)}</span>
+              Page <span className="font-bold">{page}</span> of{" "}
+              <span className="font-bold">
+                {Math.ceil(filteredBikesData.length / 10)}
+              </span>
             </span>
             <button onClick={() => handlePageChange("next")}>Next</button>
           </div>
