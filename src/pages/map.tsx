@@ -12,8 +12,8 @@ export default function Home() {
       <Head>
         <title>Stolen Bikes - Map</title>
       </Head>
-      <div className="text-center pt-6 pb-4 z-10 bg-gray-100 w-full">
-        <h1 className="font-bold text-3xl">Stolen Bikes Reports</h1>
+      <div className="text-center pt-6 pb-4 z-10 bg-gray-925 w-full">
+        <h1 className="font-bold text-4xl text-indigo-50 uppercase">Stolen Bikes Reports</h1>
         <Link href="/">
           <a className="text-blue-600 block mt-4 underline">
             View stolen bikes list

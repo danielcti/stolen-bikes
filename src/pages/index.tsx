@@ -20,30 +20,19 @@ interface Bike {
   year: number;
 }
 
-function Home() {
-  const [bikesData, setBikesData] = useState<Bike[]>([]);
+function Home({ bikesData }: any) {
   const [filteredBikesData, setFilteredBikesData] = useState<Bike[]>([]);
   const [searchInput, setSearchInput] = useState("");
   const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    async function fetchBikeData() {
-      const response = await api.get("search", {
-        params: {
-          per_page: 100,
-          stolenness: "stolen",
-        },
-      });
-      setBikesData(response.data.bikes);
-      setFilteredBikesData(response.data.bikes);
-      setIsLoading(false);
-    }
-    fetchBikeData();
-  }, []);
+    setFilteredBikesData(bikesData);
+    setIsLoading(false);
+  }, [bikesData]);
 
   useEffect(() => {
-    const filtered = bikesData.filter((bike) => {
+    const filtered = bikesData.filter((bike: any) => {
       return (
         bike.title?.toLowerCase().includes(searchInput.toLowerCase()) ||
         bike.stolen_location?.toLowerCase().includes(searchInput.toLowerCase())
@@ -67,7 +56,9 @@ function Home() {
   return (
     <div className="bg-gray-925 pb-6 ">
       <section className="fixed flex justify-center flex-col items-center w-full bg-gray-925 py-4 z-20">
-        <h1 className="font-bold text-3xl text-indigo-50">Stolen Bikes Reports</h1>
+        <h1 className="font-bold text-4xl uppercase text-indigo-50">
+          Stolen Bikes Reports
+        </h1>
         <Link href="/map">
           <a className="text-blue-600 block mt-4 underline">
             View stolen bikes map
@@ -89,7 +80,7 @@ function Home() {
             <span className="mx-8">
               Page <span className="font-bold">{page}</span> of{" "}
               <span className="font-bold">
-                {Math.ceil(filteredBikesData.length / 10)}
+                {Math.ceil(filteredBikesData?.length / 10)}
               </span>
             </span>
             <button onClick={() => handlePageChange("next")}>Next</button>
@@ -97,18 +88,29 @@ function Home() {
         )}
       </section>
       <div className="pt-52 max-w-3xl m-auto">
-        {isLoading ? (
-          <h2 className="text-center font-bold">Loading...</h2>
-        ) : (
-          filteredBikesData.length > 0 &&
-          filteredBikesData.map((bike, i) => {
+        {filteredBikesData?.length > 0 &&
+          filteredBikesData.map((bike: any, i: number) => {
             if (i >= (page - 1) * 10 && i < page * 10)
               return <BikeCard data={bike} key={i} />;
-          })
-        )}
+          })}
       </div>
     </div>
   );
 }
 
 export default Home;
+
+export const getServerSideProps = async () => {
+  const response = await api.get(`search`, {
+    params: {
+      per_page: 100,
+      stolenness: "stolen",
+    },
+  });
+
+  return {
+    props: {
+      bikesData: response.data.bikes,
+    },
+  };
+};

@@ -30,7 +30,7 @@ function BikeCard({ data }: BikeProps) {
   }
   return (
     <Link href={`/bike/${data.id}`}>
-      <figure className="md:flex bg-white rounded-xl p-8 md:p-0 mt-6 border-black border-2 cursor-pointer">
+      <figure className="md:flex bg-gray-950 rounded-xl p-8 md:p-0 mt-6 border-none cursor-pointer">
         <div className="w-48 h-48 relative">
           {data.large_img ? (
             <Image
@@ -49,11 +49,11 @@ function BikeCard({ data }: BikeProps) {
           )}
         </div>
         <div className="flex flex-col justify-between py-6 w-3/4 px-6">
-          <h2 className="text-lg font-semibold">{data.title}</h2>
-          <div className="">
+          <h2 className="text-lg font-bold text-red-500">{data.title}</h2>
+          <div className="text-lg text-indigo-50">
             <h3 className="mb-4">{data.stolen_location}</h3>
             {data.date_stolen && (
-              <h4 className="text-gray-500">{formatDate(data.date_stolen)}</h4>
+              <h4 className="">{formatDate(data.date_stolen)}</h4>
             )}
           </div>
         </div>
