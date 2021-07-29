@@ -6,11 +6,12 @@ import Link from "next/link";
 
 interface LocationMarkerProps {
   bike: Bike;
+  initialZoom: number;
   key: number;
 }
 
-export default function LocationMarker({ bike }: LocationMarkerProps) {
-  const [zoom, setZoom] = useState(4);
+export default function LocationMarker({ bike, initialZoom }: LocationMarkerProps) {
+  const [zoom, setZoom] = useState(initialZoom);
   const map = useMapEvents({
     zoom: (e) => {
       setZoom(e.target._zoom);

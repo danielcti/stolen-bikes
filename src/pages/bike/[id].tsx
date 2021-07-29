@@ -42,6 +42,7 @@ export default function BikePage({ bike }: BikeProps) {
           <h2 className="font-bold text-5xl py-8 uppercase">{bike?.title}</h2>
           {bike?.stolen_record.latitude && (
             <h3
+              className="cursor-pointer underline"
               onClick={() =>
                 router.push({
                   pathname: "/map",

@@ -13,9 +13,10 @@ interface MapProps {
   center?: [number,number]; 
 }
 
-const Map = ({center}: MapProps) => {
+const Map = (props: any) => {
   const [bikesData, setBikesData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(true);
+  console.log(props);
 
   useEffect(() => {
     async function fetchBikeData() {
@@ -55,18 +56,18 @@ const Map = ({center}: MapProps) => {
   return (
     <MapContainer
       style={{ width: "100vw", height: "80vh" }}
-      center={center ||[38.4816758, -100.5638913]}
-      zoom={4}
+      center={props.center}
+      zoom={props.zoom}
       minZoom={3}
     >
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
       />
       {bikesData.length &&
         bikesData.map((bike: any) => {
           if (bike?.stolen_record?.latitude) {
-            return <LocationMarker key={bike?.id} bike={bike} />;
+            return <LocationMarker key={bike?.id} bike={bike} initialZoom={props.zoom} />;
           }
         })}
     </MapContainer>
