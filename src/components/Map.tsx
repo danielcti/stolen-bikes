@@ -9,7 +9,9 @@ import {
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import api from "../services/api";
-import Link from 'next/link';
+import Link from "next/link";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 
 interface Bike {
   date_stolen: number;
@@ -53,8 +55,9 @@ const Map = () => {
       ? L.icon({
           iconUrl: bike.large_img,
           iconSize: [10 * zoom, 10 * zoom],
+          className: "rounded-full",
         })
-      : L.icon({ iconUrl: "/marker.png" });
+      : L.icon({ iconUrl: "/marker.png", className: "rounded-full" });
     return (
       <Marker
         position={[
@@ -94,7 +97,16 @@ const Map = () => {
   }, []);
 
   if (isLoading) {
-    return <h2 className="font-bold text-center">Loading...</h2>;
+    return (
+      <div className="flex justify-center items-center h-48">
+      <Loader
+        type="Circles"
+        color="#FF4654"
+        height={100}
+        width={100}
+      />
+      </div>
+    );
   }
 
   return (
@@ -102,6 +114,7 @@ const Map = () => {
       style={{ width: "100vw", height: "80vh" }}
       center={[38.4816758, -100.5638913]}
       zoom={4}
+      minZoom={3}
     >
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
