@@ -1,29 +1,16 @@
 import { format } from "date-fns";
 import Link from 'next/link';
 import Image from 'next/image';
-
-interface Bike {
-  date_stolen: number;
-  description: string;
-  frame_colors: [];
-  frame_model: string;
-  id: number;
-  large_img: string;
-  manufacturer_name: string;
-  registry_name: string;
-  stolen: boolean;
-  stolen_location: string;
-  thumb: string;
-  title: string;
-  url: string;
-  year: number;
-}
+import Bike from '../utils/Bike';
+import {useMemo} from 'react';
 
 interface BikeProps {
   data: Bike;
 }
 
 function BikeCard({ data }: BikeProps) {
+  const memoizedValue = useMemo(() => formatDate(data.date_stolen), [data.date_stolen]);
+
   function formatDate(unix_timestamp: number) {
     const date = new Date(unix_timestamp * 1000);
     return format(date, "dd/MM/yyyy 'at' HH:mm");
@@ -53,7 +40,7 @@ function BikeCard({ data }: BikeProps) {
           <div className="text-lg text-indigo-50">
             <h3 className="mb-4">{data.stolen_location}</h3>
             {data.date_stolen && (
-              <h4 className="">{formatDate(data.date_stolen)}</h4>
+              <h4 className="">{memoizedValue}</h4>
             )}
           </div>
         </div>

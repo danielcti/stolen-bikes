@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import BikeCard from "../components/BikeCard";
 import api from "../services/api";
 import Link from "next/link";
+import Pagination from '../components/Pagination';
 
 interface Bike {
   date_stolen: number;
@@ -20,7 +21,7 @@ interface Bike {
   year: number;
 }
 
-function Home({ bikesData }: any) {
+export default function Home({ bikesData }: any) {
   const [filteredBikesData, setFilteredBikesData] = useState<Bike[]>([]);
   const [searchInput, setSearchInput] = useState("");
   const [page, setPage] = useState(1);
@@ -41,7 +42,7 @@ function Home({ bikesData }: any) {
     setFilteredBikesData(filtered);
   }, [searchInput]);
 
-  function handlePageChange(mode: string) {
+  function handlePageChange(mode: string): void {
     if (mode === "previous") {
       if (page > 1) {
         setPage(page - 1);
@@ -60,7 +61,7 @@ function Home({ bikesData }: any) {
           Stolen Bikes Reports
         </h1>
         <Link href="/map">
-          <a className="text-blue-600 block mt-4 underline">
+          <a className="text-red-500 block mt-4 underline">
             View stolen bikes map
           </a>
         </Link>
@@ -73,18 +74,7 @@ function Home({ bikesData }: any) {
           onChange={(e) => setSearchInput(e.target.value)}
         />
         {!isLoading && (
-          <div className="mt-6 text-indigo-50">
-            <button onClick={() => handlePageChange("previous")}>
-              Previous
-            </button>
-            <span className="mx-8">
-              Page <span className="font-bold">{page}</span> of{" "}
-              <span className="font-bold">
-                {Math.ceil(filteredBikesData?.length / 10)}
-              </span>
-            </span>
-            <button onClick={() => handlePageChange("next")}>Next</button>
-          </div>
+          <Pagination page={page} changePage={handlePageChange} length={filteredBikesData?.length}/>
         )}
       </section>
       <div className="pt-52 max-w-3xl m-auto">
@@ -97,8 +87,6 @@ function Home({ bikesData }: any) {
     </div>
   );
 }
-
-export default Home;
 
 export const getServerSideProps = async () => {
   const response = await api.get(`search`, {

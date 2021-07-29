@@ -2,77 +2,20 @@ import { useEffect, useState } from "react";
 import {
   MapContainer,
   TileLayer,
-  Marker,
-  Popup,
-  useMapEvents,
 } from "react-leaflet";
-import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import api from "../services/api";
-import Link from "next/link";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
+import LocationMarker from './LocationMarker';
 
-interface Bike {
-  date_stolen: number;
-  description: string;
-  frame_colors: [];
-  frame_model: string;
-  id: number;
-  large_img: string;
-  manufacturer_name: string;
-  registry_name: string;
-  stolen: boolean;
-  stolen_location: string;
-  thumb: string;
-  title: string;
-  url: string;
-  year: number;
-  stolen_record: {
-    latitude: number;
-    longitude: number;
-    location: string;
-  };
+interface MapProps {
+  center?: [number,number]; 
 }
 
-interface LocationMarkerProps {
-  bike: Bike;
-  key: number;
-}
-
-const Map = () => {
+const Map = ({center}: MapProps) => {
   const [bikesData, setBikesData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  function LocationMarker({ bike }: LocationMarkerProps) {
-    const [zoom, setZoom] = useState(4);
-    const map = useMapEvents({
-      zoom: (e) => {
-        setZoom(e.target._zoom);
-      },
-    });
-    const icon = bike.large_img
-      ? L.icon({
-          iconUrl: bike.large_img,
-          iconSize: [10 * zoom, 10 * zoom],
-          className: "rounded-full",
-        })
-      : L.icon({ iconUrl: "/marker.png", className: "rounded-full" });
-    return (
-      <Marker
-        position={[
-          bike?.stolen_record?.latitude,
-          bike?.stolen_record?.longitude,
-        ]}
-        icon={icon}
-      >
-        <Popup>
-          <h3>Location: {bike?.stolen_record?.location}</h3>
-          <Link href={`/bike/${bike.id}`}>View more details</Link>
-        </Popup>
-      </Marker>
-    );
-  }
 
   useEffect(() => {
     async function fetchBikeData() {
@@ -112,7 +55,7 @@ const Map = () => {
   return (
     <MapContainer
       style={{ width: "100vw", height: "80vh" }}
-      center={[38.4816758, -100.5638913]}
+      center={center ||[38.4816758, -100.5638913]}
       zoom={4}
       minZoom={3}
     >
