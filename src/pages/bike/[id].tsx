@@ -74,7 +74,7 @@ export async function getStaticPaths() {
 export const getStaticProps = async ({ params }: any) => {
   try {
     const id = params.id;
-    const response = await axios.get(`http://localhost:3000/api/bikes/${id}`);
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/bikes/${id}`);
 
     return {
       props: {

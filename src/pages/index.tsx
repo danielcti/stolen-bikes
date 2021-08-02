@@ -131,7 +131,7 @@ export default function Home({ bikesData }: any) {
 }
 
 export const getServerSideProps = async () => {
-  const response = await axios.get("http://localhost:3000/api/bikes", {
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/bikes`, {
     params: {
       per_page: 100,
       stolenness: "stolen",

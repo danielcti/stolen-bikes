@@ -62,7 +62,7 @@ function CreateOrEditModal({
           `https://nominatim.openstreetmap.org/search?format=json&limit=3&q=${stolenLocation}`
         )
       ).data[0];
-      const response = await axios.post(`http://localhost:3000/api/bikes`, {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/bikes`, {
         title,
         thief_description: thiefDescription,
         frame_colors: frameColors,
@@ -86,7 +86,7 @@ function CreateOrEditModal({
           `https://nominatim.openstreetmap.org/search?format=json&limit=3&q=${stolenLocation}`
         )
       ).data[0];
-      const response = await axios.put(`http://localhost:3000/api/bikes/${payload?._id}`, {
+      const response = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/bikes/${payload?._id}`, {
         title,
         thief_description: thiefDescription,
         frame_colors: frameColors,
