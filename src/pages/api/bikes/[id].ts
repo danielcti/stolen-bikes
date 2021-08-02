@@ -28,10 +28,22 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     async function updateBike() {
         try {
-            const bike = await Bike.findByIdAndUpdate(req.query.id, req.body);
+            const bike = await Bike.findById(req.query.id);
+
             if (!bike) {
                 return res.status(404).json({ message: "Bike not found" });
             }
+
+            bike.frame_colors = req.body.frame_colors;
+            bike.frame_size = req.body.frame_size;
+            bike.latitude = req.body.latitude;
+            bike.longitude = req.body.longitude;
+            bike.stolen = true
+            bike.stolen_location = req.body.stolen_location;
+            bike.thief_description = req.body.thief_description;
+            bike.title = req.body.title;
+
+            await bike.save();
             return res.status(204).json(bike);
         } catch (error) {
             return res.status(400).json({ message: error });
