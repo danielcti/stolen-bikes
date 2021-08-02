@@ -28,9 +28,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     async function updateBike() {
         try {
-            const bike = await Bike.findByIdAndUpdate(req.query.id, req.body, {
-                useFindAndModify: false,
-            });
+            const bike = await Bike.findByIdAndUpdate(req.query.id, req.body);
             if (!bike) {
                 return res.status(404).json({ message: "Bike not found" });
             }
