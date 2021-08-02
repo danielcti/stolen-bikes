@@ -40,7 +40,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             bike.longitude = req.body.longitude;
             bike.stolen = true
             bike.stolen_location = req.body.stolen_location;
-            bike.thief_description = req.body.thief_description;
             bike.title = req.body.title;
 
             await bike.save();

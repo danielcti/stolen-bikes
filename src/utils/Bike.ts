@@ -8,6 +8,5 @@ export default interface Bike {
     title: string;
     latitude: number;
     longitude: number;
-    thief_description: string;
     frame_size: string;
 }

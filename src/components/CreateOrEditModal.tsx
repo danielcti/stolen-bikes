@@ -42,14 +42,12 @@ function CreateOrEditModal({
   payload,
 }: CreateOrEditModalProps) {
   const [title, setTitle] = useState("");
-  const [thiefDescription, setThiefDescription] = useState("");
   const [frameColors, setFrameColors] = useState("");
   const [frameSize, setFrameSize] = useState("");
   const [stolenLocation, setStolenLocation] = useState("");
 
   useEffect(() => {
     setTitle(payload?.title);
-    setThiefDescription(payload?.thief_description);
     setFrameColors(payload?.frame_colors);
     setFrameSize(payload?.frame_size);
     setStolenLocation(payload?.stolen_location);
@@ -66,7 +64,6 @@ function CreateOrEditModal({
         `${process.env.NEXT_PUBLIC_API_URL}/bikes`,
         {
           title,
-          thief_description: thiefDescription,
           frame_colors: frameColors,
           frame_size: frameSize,
           stolen_location: stolenLocation,
@@ -93,7 +90,6 @@ function CreateOrEditModal({
         `${process.env.NEXT_PUBLIC_API_URL}/bikes/${payload?._id}`,
         {
           title,
-          thief_description: thiefDescription,
           frame_colors: frameColors,
           frame_size: frameSize,
           stolen_location: stolenLocation,
@@ -128,16 +124,6 @@ function CreateOrEditModal({
           id="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-        />
-        <label htmlFor="thief_description">Thief description</label>
-        <input
-          className="rounded bg-gray-600 text-indigo-50 my-2 px-4 py-2"
-          placeholder="Thief description"
-          type="text"
-          name="thief_description"
-          id="thief_description"
-          value={thiefDescription}
-          onChange={(e) => setThiefDescription(e.target.value)}
         />
         <label htmlFor="title">Frame colors</label>
         <input

@@ -5,7 +5,6 @@ const BikeSchema = new mongoose.Schema({
     stolen_location: String,
     latitude: Number,
     longitude: Number,
-    thief_description: String,
     date_stolen: Number,
     large_img: String,
     frame_colors: String,

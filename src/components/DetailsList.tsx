@@ -21,12 +21,6 @@ function DetailsList({ bike }: DetailsListProps) {
             detailDescription={bike.stolen_location}
           />
         )}
-        {bike?.thief_description && (
-          <DetailCard
-            detailTitle="thief description"
-            detailDescription={bike?.thief_description}
-          />
-        )}
         {bike.frame_colors && (
           <DetailCard
             detailTitle="Frame colors"
