@@ -9,7 +9,7 @@ export default function NotFound() {
         <div className="w-full md:w-1/2">
             <div className="mb-10 md:mb-20 text-gray-600 font-light">
                 <h1 className="font-black uppercase text-3xl lg:text-5xl text-red-500 mb-10">You seem to be lost!</h1>
-                <p>The page you're looking for isn't available.</p>
+                <p>The page you are looking for is nott available.</p>
                 <p>Try searching again or use the Go Back button below.</p>
             </div>
             <div className="mb-20 md:mb-0">
