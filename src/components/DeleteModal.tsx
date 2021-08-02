@@ -37,7 +37,7 @@ function DeleteModal({
   updateList,
 }: DeleteModalProps) {
   async function removeBike() {
-    let response = await axios.delete(`http://localhost:3000/api/bikes/${id}`);
+    let response = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/bikes/${id}`);
     if (response?.status === 200) {
       console.log("Bike deleted.");
       updateList();

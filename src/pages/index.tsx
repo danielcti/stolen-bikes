@@ -65,7 +65,7 @@ export default function Home({ bikesData }: any) {
   }
 
   async function updateList() {
-    const response = await axios.get("http://localhost:3000/api/bikes");
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/bikes`);
     setAllBikesData(response.data);
   }
 
@@ -131,6 +131,7 @@ export default function Home({ bikesData }: any) {
 }
 
 export const getServerSideProps = async () => {
+  console.log(process.env.NODE_ENV);
   const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/bikes`, {
     params: {
       per_page: 100,
