@@ -98,7 +98,7 @@ export default function Home({ bikesData }: any) {
             length={filteredBikesData?.length}
           />
         </section>
-        <div className="pt-52 max-w-3xl m-auto">
+        <div className="pt-72 max-w-3xl m-auto">
           {filteredBikesData?.length > 0 &&
             filteredBikesData.map((bike: any, i: number) => {
               if (i >= (page - 1) * 10 && i < page * 10)
