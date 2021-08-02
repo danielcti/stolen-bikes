@@ -43,8 +43,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             bike.thief_description = req.body.thief_description;
             bike.title = req.body.title;
 
-            await bike.save();
-            return res.status(204).json(bike);
+            bike.save();
+            return res.status(204).json({});
         } catch (error) {
             return res.status(400).json({ message: error });
         }
