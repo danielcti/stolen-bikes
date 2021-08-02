@@ -17,21 +17,22 @@ export default function LocationMarker({ bike, initialZoom }: LocationMarkerProp
       setZoom(e.target._zoom);
     },
   });
-  const icon = bike.large_img
-    ? L.icon({
-        iconUrl: bike.large_img,
-        iconSize: [10 * zoom, 10 * zoom],
-        className: "rounded-full border-2 border-red-500",
-      })
-    : L.icon({ iconUrl: "/marker.png"});
+  // const icon = bike.large_img
+  //   ? L.icon({
+  //       iconUrl: bike.large_img,
+  //       iconSize: [10 * zoom, 10 * zoom],
+  //       className: "rounded-full border-2 border-red-500",
+  //     })
+  //   : L.icon({ iconUrl: "/marker.png"});
+  const icon = L.icon({iconUrl: "/bike_icon.png", iconSize: [70, 70], className: "rounded-full bg-gray-100 px-2 py-2"})
   return (
     <Marker
-      position={[bike?.stolen_record?.latitude, bike?.stolen_record?.longitude]}
+      position={[bike?.latitude, bike?.longitude]}
       icon={icon}
     >
       <Popup>
-        <h3>Location: {bike?.stolen_record?.location}</h3>
-        <Link href={`/bike/${bike.id}`}>View more details</Link>
+        <h3>Location: {bike?.stolen_location}</h3>
+        <Link href={`/bike/${bike._id}`}>View more details</Link>
       </Popup>
     </Marker>
   );

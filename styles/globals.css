@@ -15,3 +15,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.width-fit-content {
+  width: fit-content;
+}

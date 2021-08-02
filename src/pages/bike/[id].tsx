@@ -5,6 +5,7 @@ import Image from "next/image";
 import styles from "./Bike.module.css";
 import Bike from "../../utils/Bike";
 import DetailsList from "../../components/DetailsList";
+import axios from 'axios';
 
 interface BikeProps {
   bike: Bike;
@@ -40,15 +41,15 @@ export default function BikePage({ bike }: BikeProps) {
             )}
           </div>
           <h2 className="font-bold text-5xl py-8 uppercase">{bike?.title}</h2>
-          {bike?.stolen_record.latitude && (
+          {bike?.latitude && (
             <h3
               className="cursor-pointer underline"
               onClick={() =>
                 router.push({
                   pathname: "/map",
                   query: {
-                    lat: bike?.stolen_record?.latitude,
-                    long: bike?.stolen_record?.longitude,
+                    lat: bike?.latitude,
+                    long: bike?.longitude,
                   },
                 })
               }
@@ -73,11 +74,11 @@ export async function getStaticPaths() {
 export const getStaticProps = async ({ params }: any) => {
   try {
     const id = params.id;
-    const response = await api.get(`/bikes/${id}`);
+    const response = await axios.get(`http://localhost:3000/api/bikes/${id}`);
 
     return {
       props: {
-        bike: response.data.bike,
+        bike: response.data,
       },
       notFound: false,
     };

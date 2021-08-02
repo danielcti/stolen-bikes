@@ -8,33 +8,16 @@ import api from "../services/api";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import LocationMarker from './LocationMarker';
-
-interface MapProps {
-  center?: [number,number]; 
-}
+import axios from 'axios';
 
 const Map = (props: any) => {
   const [bikesData, setBikesData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(true);
-  console.log(props);
 
   useEffect(() => {
     async function fetchBikeData() {
-      const response = await api.get("search", {
-        params: {
-          per_page: 100,
-          stolenness: "stolen",
-        },
-      });
-
-      const results = await Promise.all(
-        response.data.bikes.map(async (bike: any) => {
-          const response = await api.get(`/bikes/${bike.id}`);
-          return response.data.bike;
-        })
-      );
-
-      setBikesData(results);
+      const response = await axios.get("http://localhost:3000/api/bikes");
+      setBikesData(response.data);
       setIsLoading(false);
     }
     fetchBikeData();
@@ -66,8 +49,8 @@ const Map = (props: any) => {
       />
       {bikesData.length &&
         bikesData.map((bike: any) => {
-          if (bike?.stolen_record?.latitude) {
-            return <LocationMarker key={bike?.id} bike={bike} initialZoom={props.zoom} />;
+          if (bike?.stolen_location) {
+            return <LocationMarker key={bike?._id} bike={bike} initialZoom={props.zoom} />;
           }
         })}
     </MapContainer>
