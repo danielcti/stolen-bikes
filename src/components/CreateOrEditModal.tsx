@@ -96,7 +96,7 @@ function CreateOrEditModal({
         longitude: lon,
         stolen: true,
       });
-      if (response?.status === 204) {
+      if (response?.status === 200) {
         console.log("Bike updated.");
         updateList();
       } else {
