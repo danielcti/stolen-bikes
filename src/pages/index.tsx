@@ -5,7 +5,8 @@ import Pagination from "../components/Pagination";
 import axios from "axios";
 import DeleteModal from "../components/DeleteModal";
 import CreateOrEditModal from "../components/CreateOrEditModal";
-import Bike from '../utils/Bike';
+import Bike from "../utils/Bike";
+import { useAuth } from "../hooks/useAuth";
 
 export default function Home({ bikesData }: any) {
   const [allBikesData, setAllBikesData] = useState<Bike[]>([]);
@@ -17,6 +18,7 @@ export default function Home({ bikesData }: any) {
   const [isCreate, setIsCreate] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [createModalIsOpen, setCreateModalIsOpen] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     setAllBikesData(bikesData);
@@ -54,7 +56,7 @@ export default function Home({ bikesData }: any) {
   }
 
   function openCreateModal(id?: string) {
-    if(id){
+    if (id) {
       setEditingId(id);
       setIsCreate(false);
     } else {
@@ -65,23 +67,16 @@ export default function Home({ bikesData }: any) {
   }
 
   async function updateList() {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/bikes`);
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/bikes`
+    );
     setAllBikesData(response.data);
   }
 
   return (
     <>
       <div className="bg-gray-925 pb-6 ">
-        <section className="fixed flex justify-center flex-col items-center w-full bg-gray-925 py-4 z-20">
-          <h1 className="font-bold text-4xl uppercase text-indigo-50">
-            Stolen Bikes Reports
-          </h1>
-          <Link href="/map">
-            <a className="text-red-500 block mt-4 underline">
-              View stolen bikes map
-            </a>
-          </Link>
-
+        <section className="fixed flex justify-center flex-col items-center w-full bg-gray-925 pb-4 z-20 pt-32">
           <input
             className="bg-indigo-50 border-none rounded px-6 py-3 mt-4 placeholder-gray-950 text-gray-800"
             placeholder="Search for bikes titles or locations"
@@ -89,9 +84,14 @@ export default function Home({ bikesData }: any) {
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
           />
-          <button className="bg-green-600 hover:bg-green-400 px-4 py-2 mt-4 rounded-md text-indigo-50" onClick={() => openCreateModal()}>
-            Report a new bike thief
-          </button>
+          {user && (
+            <button
+              className="bg-green-600 hover:bg-green-400 px-4 py-2 mt-4 rounded-md text-indigo-50"
+              onClick={() => openCreateModal()}
+            >
+              Report a new bike thief
+            </button>
+          )}
           <Pagination
             page={page}
             changePage={handlePageChange}
@@ -124,20 +124,14 @@ export default function Home({ bikesData }: any) {
         modalIsOpen={createModalIsOpen}
         setIsOpen={setCreateModalIsOpen}
         updateList={updateList}
-        payload={allBikesData.filter(bike => bike._id === editingId)[0]}
+        payload={allBikesData.filter((bike) => bike._id === editingId)[0]}
       />
     </>
   );
 }
 
 export const getServerSideProps = async () => {
-  console.log(process.env.NODE_ENV);
-  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/bikes`, {
-    params: {
-      per_page: 100,
-      stolenness: "stolen",
-    },
-  });
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/bikes`);
 
   return {
     props: {

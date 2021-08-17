@@ -4,6 +4,7 @@ import axios from "axios";
 import Bike from "../utils/Bike";
 import { useEffect } from "react";
 import randomImage from "../utils/randomImage";
+import { useAuth } from "../hooks/useAuth";
 
 interface CreateOrEditModalProps {
   modalIsOpen: boolean;
@@ -45,6 +46,7 @@ function CreateOrEditModal({
   const [frameColors, setFrameColors] = useState("");
   const [frameSize, setFrameSize] = useState("");
   const [stolenLocation, setStolenLocation] = useState("");
+  const { user } = useAuth();
 
   useEffect(() => {
     setTitle(payload?.title);
@@ -72,6 +74,7 @@ function CreateOrEditModal({
           stolen: true,
           date_stolen: Math.floor(new Date().getTime() / 1000),
           large_img: randomImage(),
+          user_id: user?.id,
         }
       );
       if (response?.status === 200) {
@@ -96,6 +99,7 @@ function CreateOrEditModal({
           latitude: lat,
           longitude: lon,
           stolen: true,
+          user_id: user?.id,
         }
       );
       if (response?.status === 200) {

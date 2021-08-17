@@ -17,7 +17,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     async function getBikes() {
-        const bikes = await Bike.find();
+        const bikes = await Bike.find().sort({ date_stolen: 'desc' });
         return res.status(200).json(bikes);
     }
 

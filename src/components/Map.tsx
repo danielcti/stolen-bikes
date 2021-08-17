@@ -4,7 +4,6 @@ import {
   TileLayer,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import api from "../services/api";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import LocationMarker from './LocationMarker';
@@ -38,7 +37,7 @@ const Map = (props: any) => {
 
   return (
     <MapContainer
-      style={{ width: "100vw", height: "80vh" }}
+      style={{ width: "100vw", height: "calc(100vh - 100px)"}}
       center={props.center}
       zoom={props.zoom}
       minZoom={3}

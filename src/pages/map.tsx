@@ -11,20 +11,10 @@ function MapPage(props: any) {
   });
 
   return (
-    <div className="mx-auto">
+    <div className="mx-auto pt-24">
       <Head>
         <title>Stolen Bikes - Map</title>
       </Head>
-      <div className="text-center pt-6 pb-4 z-10 bg-gray-925 w-full">
-        <h1 className="font-bold text-4xl text-indigo-50 uppercase">
-          Stolen Bikes Reports
-        </h1>
-        <Link href="/">
-          <a className="text-red-500 block mt-4 underline">
-            View stolen bikes list
-          </a>
-        </Link>
-      </div>
       <MapWithNoSSR
         zoom={props.router.query.lat ? 8 : 4}
         center={

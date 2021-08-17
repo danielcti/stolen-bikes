@@ -24,7 +24,7 @@ export default function LocationMarker({ bike, initialZoom }: LocationMarkerProp
   //       className: "rounded-full border-2 border-red-500",
   //     })
   //   : L.icon({ iconUrl: "/marker.png"});
-  const icon = L.icon({iconUrl: "/bike_icon.png", iconSize: [70, 70], className: "rounded-full bg-gray-100 px-2 py-2"})
+  const icon = L.icon({iconUrl: "/bike_icon.png", iconSize: [50, 50], className: "rounded-full bg-gray-100 px-1 py-1"})
   return (
     <Marker
       position={[bike?.latitude, bike?.longitude]}

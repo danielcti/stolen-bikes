@@ -1,11 +1,10 @@
-import api from "../../services/api";
 import { useRouter } from "next/router";
 import { FaArrowLeft } from "react-icons/fa";
 import Image from "next/image";
 import styles from "./Bike.module.css";
 import Bike from "../../utils/Bike";
 import DetailsList from "../../components/DetailsList";
-import axios from 'axios';
+import axios from "axios";
 
 interface BikeProps {
   bike: Bike;
@@ -14,7 +13,7 @@ interface BikeProps {
 export default function BikePage({ bike }: BikeProps) {
   const router = useRouter();
   return (
-    <div className="sm:max-w-2xl md:max-w-3-xl lg:max-w-4xl xl:max-w-5xl m-auto py-5 px-10 text-indigo-50">
+    <div className="sm:max-w-2xl md:max-w-3-xl lg:max-w-4xl xl:max-w-5xl m-auto py-5 px-10 text-indigo-50 pt-36">
       {bike && (
         <>
           <span
@@ -74,7 +73,9 @@ export async function getStaticPaths() {
 export const getStaticProps = async ({ params }: any) => {
   try {
     const id = params.id;
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/bikes/${id}`);
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/bikes/${id}`
+    );
 
     return {
       props: {
