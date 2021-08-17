@@ -25,21 +25,16 @@ export default function BikePage({ bike, author }: BikeProps) {
             <FaArrowLeft size={32} />
           </span>
           <div className={styles.unsetImg}>
-            {bike?.large_img ? (
-              <Image
-                layout="fill"
-                src={bike?.large_img}
-                objectFit="contain"
-                className={styles.customImg}
-              />
-            ) : (
-              <Image
-                layout="fill"
-                src="/default_bike.jpeg"
-                objectFit="contain"
-                className={styles.customImg}
-              />
-            )}
+            <Image
+              src={
+                bike.image
+                  ? `data:image/png;base64,${bike?.image}`
+                  : bike.large_img
+              }
+              layout="fill"
+              objectFit="contain"
+              className={styles.customImg}
+            />
           </div>
           {author && (
             <div className="flex items-center mb-6 mt-20">

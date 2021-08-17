@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import Modal, { Styles } from "react-modal";
 import axios from "axios";
 import Bike from "../utils/Bike";
@@ -46,6 +46,7 @@ function CreateOrEditModal({
   const [frameColors, setFrameColors] = useState("");
   const [frameSize, setFrameSize] = useState("");
   const [stolenLocation, setStolenLocation] = useState("");
+  const [image, setImage] = useState("");
   const { user } = useAuth();
 
   useEffect(() => {
@@ -53,6 +54,7 @@ function CreateOrEditModal({
     setFrameColors(payload?.frame_colors);
     setFrameSize(payload?.frame_size);
     setStolenLocation(payload?.stolen_location);
+    setImage(payload?.image);
   }, [payload]);
 
   async function createOrEditBike() {
@@ -74,6 +76,7 @@ function CreateOrEditModal({
           stolen: true,
           date_stolen: Math.floor(new Date().getTime() / 1000),
           large_img: randomImage(),
+          image,
           user_id: user?.id,
         }
       );
@@ -100,6 +103,7 @@ function CreateOrEditModal({
           longitude: lon,
           stolen: true,
           user_id: user?.id,
+          image,
         }
       );
       if (response?.status === 200) {
@@ -111,6 +115,18 @@ function CreateOrEditModal({
     }
 
     setIsOpen(false);
+  }
+
+  async function handleImageUpload(e: any) {
+    if (!e.target.files) {
+      return;
+    }
+    var file = e.target.files[0];
+    var reader = new FileReader();
+    reader.readAsBinaryString(file);
+    reader.onload = function () {
+      setImage(btoa(reader.result));
+    };
   }
 
   return (
@@ -158,6 +174,15 @@ function CreateOrEditModal({
           id="stolen_location"
           value={stolenLocation}
           onChange={(e) => setStolenLocation(e.target.value)}
+        />
+        <label htmlFor="image">Bike image</label>
+        <input
+          className="rounded text-gray-600 my-2"
+          placeholder="Bike image"
+          type="file"
+          name="image"
+          id="image"
+          onChange={(e) => handleImageUpload(e)}
         />
       </div>
       <div className="mt-4">

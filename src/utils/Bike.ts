@@ -10,4 +10,5 @@ export default interface Bike {
   longitude: number;
   frame_size: string;
   user_id: string;
+  image: string;
 }

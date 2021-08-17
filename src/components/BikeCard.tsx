@@ -50,7 +50,11 @@ function BikeCard({ data, openDeleteModal, openEditModal }: BikeProps) {
       <Link href={`/bike/${data._id}`}>
         <div className={styles.unsetImg}>
           <Image
-            src={data.large_img}
+            src={
+              data.image
+                ? `data:image/png;base64,${data?.image}`
+                : data.large_img
+            }
             layout="fill"
             objectFit="cover"
             className={styles.customImg}
@@ -58,40 +62,44 @@ function BikeCard({ data, openDeleteModal, openEditModal }: BikeProps) {
         </div>
       </Link>
       <div className="flex flex-col justify-between py-6 w-3/4 px-6">
-        {author && (
-          <Link href={`/bike/${data._id}`}>
-            <div className="flex items-center mb-6">
-              <Image
-                className="rounded-full"
-                src={author?.avatar}
-                height="50"
-                width="50"
-              />
-              <h2 className="text-lg mx-4 font-bold text-indigo-50">
-                {author?.name}
-              </h2>
+        <div className="flex justify-between items-center mb-6">
+          {author && (
+            <Link href={`/bike/${data._id}`}>
+              <div className="flex items-center">
+                <Image
+                  className="rounded-full"
+                  src={author?.avatar}
+                  height="50"
+                  width="50"
+                />
+                <h2 className="text-lg mx-4 font-bold text-indigo-50">
+                  {author?.name}
+                </h2>
+              </div>
+            </Link>
+          )}
+          {user?.id === data.user_id && (
+            <div className="flex">
+              <button
+                title="Delete bike"
+                onClick={handleOpenDeleteModal}
+                className="border-none rounded-md bg-red-500 text-indigo-50 py-3 px-3 width-fit-content hover:bg-red-400"
+              >
+                <FaTrashAlt />
+              </button>
+              <button
+                title="Edit bike"
+                onClick={handleOpenEditModal}
+                className="border-none rounded-md bg-blue-500 text-indigo-50 py-3 px-3 width-fit-content hover:bg-blue-400 ml-8"
+              >
+                <FaEdit />
+              </button>
             </div>
-          </Link>
-        )}
+          )}
+        </div>
         <Link href={`/bike/${data._id}`}>
           <h2 className="text-lg font-bold text-red-500">{data.title}</h2>
         </Link>
-        {user?.id === data.user_id && (
-          <div className="flex my-6">
-            <button
-              onClick={handleOpenDeleteModal}
-              className="border-none rounded-md bg-red-500 text-indigo-50 py-3 px-3 width-fit-content hover:bg-red-400"
-            >
-              <FaTrashAlt />
-            </button>
-            <button
-              onClick={handleOpenEditModal}
-              className="border-none rounded-md bg-blue-500 text-indigo-50 py-3 px-3 width-fit-content hover:bg-blue-400 ml-8"
-            >
-              <FaEdit />
-            </button>
-          </div>
-        )}
         <div className="text-lg text-indigo-50">
           <Link href={`/bike/${data._id}`}>
             <h3 className="mb-4">{data.stolen_location}</h3>

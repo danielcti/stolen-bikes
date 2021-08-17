@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useAuth } from "../hooks/useAuth";
+import { FaGoogle } from "react-icons/fa";
 
 export default function Header() {
   const router = useRouter();
@@ -35,10 +36,10 @@ export default function Header() {
           </div>
           {!user ? (
             <div
-              className="text-xl ml-6 cursor-pointer"
+              className="text-xl ml-8 cursor-pointer flex items-center"
               onClick={signInWithGoogle}
             >
-              Sign in with Google
+              <FaGoogle className="mr-2" color="#4285F4" /> Sign in with Google
             </div>
           ) : (
             <div className="ml-8 flex items-center">

@@ -10,6 +10,7 @@ const BikeSchema = new mongoose.Schema({
   frame_colors: String,
   frame_size: String,
   user_id: String,
+  image: String,
 });
 
 const BikeModel = mongoose.models.Bike || mongoose.model("Bike", BikeSchema);
