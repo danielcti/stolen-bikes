@@ -23,6 +23,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   async function createUser() {
     try {
+      const userExists = await User.findOne({ id: req.body.id });
+      if (userExists) {
+        return res.status(204).json(userExists);
+      }
       const user = await User.create(req.body);
       return res.status(200).json(user);
     } catch (error) {
