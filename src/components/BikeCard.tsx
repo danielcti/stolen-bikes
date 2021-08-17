@@ -2,7 +2,11 @@ import { format } from "date-fns";
 import Link from "next/link";
 import Image from "next/image";
 import Bike from "../utils/Bike";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { FaTrashAlt, FaEdit } from "react-icons/fa";
+import { useAuth } from "../hooks/useAuth";
+import axios from "axios";
+import styles from "./BikeCard.module.css";
 
 interface BikeProps {
   data: Bike;
@@ -11,6 +15,8 @@ interface BikeProps {
 }
 
 function BikeCard({ data, openDeleteModal, openEditModal }: BikeProps) {
+  const { user } = useAuth();
+  const [author, setAuthor] = useState<any>();
   const memoizedValue = useMemo(
     () => formatDate(data.date_stolen),
     [data.date_stolen]
@@ -29,45 +35,63 @@ function BikeCard({ data, openDeleteModal, openEditModal }: BikeProps) {
     openEditModal(data._id);
   }
 
+  useEffect(() => {
+    async function fetchAuthorData() {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${data.user_id}`
+      );
+      setAuthor(response.data);
+    }
+    fetchAuthorData();
+  }, []);
+
   return (
     <figure className="md:flex bg-gray-950 rounded-xl p-8 md:p-0 mt-6 border-none cursor-pointer">
       <Link href={`/bike/${data._id}`}>
-        <div className="w-48 h-48 relative">
-          {data.large_img ? (
-            <Image
-              src={data.large_img}
-              layout="fill"
-              objectFit="cover"
-              className="rounded-l-xl"
-            />
-          ) : (
-            <Image
-              src="/default_bike.jpeg"
-              layout="fill"
-              objectFit="cover"
-              className="rounded-l-xl"
-            />
-          )}
+        <div className={styles.unsetImg}>
+          <Image
+            src={data.large_img}
+            layout="fill"
+            objectFit="cover"
+            className={styles.customImg}
+          />
         </div>
       </Link>
       <div className="flex flex-col justify-between py-6 w-3/4 px-6">
+        {author && (
+          <Link href={`/bike/${data._id}`}>
+            <div className="flex items-center mb-6">
+              <Image
+                className="rounded-full"
+                src={author?.avatar}
+                height="50"
+                width="50"
+              />
+              <h2 className="text-lg mx-4 font-bold text-indigo-50">
+                {author?.name}
+              </h2>
+            </div>
+          </Link>
+        )}
         <Link href={`/bike/${data._id}`}>
           <h2 className="text-lg font-bold text-red-500">{data.title}</h2>
         </Link>
-        <div className="flex">
-          <button
-            onClick={handleOpenDeleteModal}
-            className="border-none rounded-md bg-red-500 text-indigo-50 py-2 px-4 width-fit-content hover:bg-red-400"
-          >
-            Delete bike thief
-          </button>
-          <button
-            onClick={handleOpenEditModal}
-            className="border-none rounded-md bg-blue-500 text-indigo-50 py-2 px-4 width-fit-content hover:bg-blue-400 ml-5"
-          >
-            Edit bike thief
-          </button>
-        </div>
+        {user?.id === data.user_id && (
+          <div className="flex my-6">
+            <button
+              onClick={handleOpenDeleteModal}
+              className="border-none rounded-md bg-red-500 text-indigo-50 py-3 px-3 width-fit-content hover:bg-red-400"
+            >
+              <FaTrashAlt />
+            </button>
+            <button
+              onClick={handleOpenEditModal}
+              className="border-none rounded-md bg-blue-500 text-indigo-50 py-3 px-3 width-fit-content hover:bg-blue-400 ml-8"
+            >
+              <FaEdit />
+            </button>
+          </div>
+        )}
         <div className="text-lg text-indigo-50">
           <Link href={`/bike/${data._id}`}>
             <h3 className="mb-4">{data.stolen_location}</h3>

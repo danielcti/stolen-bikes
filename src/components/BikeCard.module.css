@@ -1,0 +1,12 @@
+.customImg {
+  position: relative !important;
+  border-radius: 0.75rem 0 0 0.75rem;
+}
+
+.unsetImg {
+  width: 35%;
+}
+.unsetImg > div {
+  position: unset !important;
+  height: 100% !important;
+}

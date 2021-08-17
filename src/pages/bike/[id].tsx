@@ -8,10 +8,12 @@ import axios from "axios";
 
 interface BikeProps {
   bike: Bike;
+  author: any;
 }
 
-export default function BikePage({ bike }: BikeProps) {
+export default function BikePage({ bike, author }: BikeProps) {
   const router = useRouter();
+
   return (
     <div className="sm:max-w-2xl md:max-w-3-xl lg:max-w-4xl xl:max-w-5xl m-auto py-5 px-10 text-indigo-50 pt-36">
       {bike && (
@@ -39,6 +41,19 @@ export default function BikePage({ bike }: BikeProps) {
               />
             )}
           </div>
+          {author && (
+            <div className="flex items-center mb-6 mt-20">
+              <Image
+                className="rounded-full"
+                src={author?.avatar}
+                height="50"
+                width="50"
+              />
+              <h2 className="text-lg mx-4 font-bold text-indigo-50">
+                {author?.name}
+              </h2>
+            </div>
+          )}
           <h2 className="font-bold text-5xl py-8 uppercase">{bike?.title}</h2>
           {bike?.latitude && (
             <h3
@@ -73,13 +88,17 @@ export async function getStaticPaths() {
 export const getStaticProps = async ({ params }: any) => {
   try {
     const id = params.id;
-    const response = await axios.get(
+    const { data: bike } = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/bikes/${id}`
+    );
+    const { data: author } = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/users/${bike.user_id}`
     );
 
     return {
       props: {
-        bike: response.data,
+        bike,
+        author,
       },
       notFound: false,
     };

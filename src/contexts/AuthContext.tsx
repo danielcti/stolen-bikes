@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { auth, firebase } from "../services/firebase";
 
@@ -61,6 +62,15 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
         name: displayName,
         avatar: photoURL,
       });
+
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/users`,
+        {
+          id: uid,
+          name: displayName,
+          avatar: photoURL,
+        }
+      );
     }
   }
 
