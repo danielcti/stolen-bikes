@@ -1,34 +1,73 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h2 align="center">
+   Aplicação desenvolvida em Next.js que tem o intuito de ajudar pessoas que tiveram suas bicicletas furtadas.
+</h2>
 
-## Getting Started
+<p align="center">
+  <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/danielcti/stolen-bikes">
 
-First, run the development server:
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/danielcti/stolen-bikes">
+  
+  <a href="https://github.com/danielcti/stolen-bikes/commits/main">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/danielcti/stolen-bikes">
+</a>
 
-```bash
-npm run dev
-# or
-yarn dev
+<img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
+</p>
+
+</br>
+
+<ul>
+   <li> :camera: <a href="#camera-imagens-do-projeto">Imagens do projeto</a> </li>
+   <li> :gear: <a href="#gear-tecnologias">Tecnologias</a> </li>
+   <li> :pager: <a href="#pager-desafio">Desafio Proposto</a> </li>
+   <li> :running: <a href="#running-executando">Rodando o Projeto</a> </li>
+   <li> :memo:<a href="#memo-licença">Licença</a> </li>
+   <li> :phone: <a href="#phone-contato">Contato</a> </li>
+</ul>
+
+## :camera: Imagens do projeto
+
+  <p  align="center">
+<img src="https://github.com/danielcti/stolen-bikes/blob/main/readme_assets/home.png?raw=true" width=51% />
+<img src="https://github.com/danielcti/stolen-bikes/blob/main/readme_assets/modal.png?raw=true" width=48% />
+  </p>
+  <p  align="center">
+<img src="https://github.com/danielcti/stolen-bikes/blob/main/readme_assets/map.png?raw=true" width=52% />
+<img src="https://github.com/danielcti/stolen-bikes/blob/main/readme_assets/bike.png?raw=true" width=46% />
+  </p>
+
+## :gear: Tecnologias
+
+Esse projeto foi desenvolvido com as seguintes tecnologias:
+
+- <h3>Back-end:
+- [Node.js](https://nodejs.org/en/)
+  </br> Next.js Serverless e MongoDB.
+- <h3>Front-end:
+- [React](https://reactjs.org)
+  </br> Axios, Firebase, React Leaflet, etc.
+
+## :pager: Desafio
+
+Conectar pessoas de diferentes partes do mundo que tiveram suas bicicletas roubadas para caso alguem a encontre possa se comunicar facilmente com o dono da mesma.
+
+## :running: Executando
+
+Rode o comando `yarn` na pasta raiz para baixar todas as depêndencias necesárias para rodar a aplicação.
+
+<h4> Inicie o projeto em modo desenvolvimento com o seguinte comando: </h4>
+
+```
+yarn start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## :memo: Licença
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.tsx`.
+## :phone: Contato
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<p align="center">
+<a href="https://www.linkedin.com/in/dpc2/" target="_blank"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-@dpc2-blue?style=flat&logo=linkedin"></a>
+<a href="mailto:dpc2@cin.ufpe.br"><img alt="Email" src="https://img.shields.io/badge/Email-dpc2@cin.ufpe.br-blue?style=flat&logo=gmail"></a>
+</p>
