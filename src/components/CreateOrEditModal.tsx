@@ -125,7 +125,7 @@ function CreateOrEditModal({
     var reader = new FileReader();
     reader.readAsBinaryString(file);
     reader.onload = function () {
-      setImage(btoa(reader.result));
+      setImage(btoa(String(reader.result)));
     };
   }
 
