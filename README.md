@@ -28,12 +28,12 @@
 ## :camera: Imagens do projeto
 
   <p  align="center">
-<img src="https://github.com/danielcti/stolen-bikes/blob/main/readme_assets/home.png?raw=true" width=51% />
-<img src="https://github.com/danielcti/stolen-bikes/blob/main/readme_assets/modal.png?raw=true" width=48% />
+<img src="https://github.com/danielcti/stolen-bikes/blob/main/readme_assets/home.png?raw=true" width=54% />
+<img src="https://github.com/danielcti/stolen-bikes/blob/main/readme_assets/modal.png?raw=true" width=44% />
   </p>
   <p  align="center">
-<img src="https://github.com/danielcti/stolen-bikes/blob/main/readme_assets/map.png?raw=true" width=52% />
-<img src="https://github.com/danielcti/stolen-bikes/blob/main/readme_assets/bike.png?raw=true" width=46% />
+<img src="https://github.com/danielcti/stolen-bikes/blob/main/readme_assets/map.png?raw=true" width=55% />
+<img src="https://github.com/danielcti/stolen-bikes/blob/main/readme_assets/bike.png?raw=true" width=43.5% />
   </p>
 
 ## :gear: Tecnologias
@@ -41,11 +41,9 @@
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 - <h3>Back-end:
-- [Node.js](https://nodejs.org/en/)
-  </br> Next.js Serverless e MongoDB.
+  - Next.js Serverless e MongoDB.
 - <h3>Front-end:
-- [React](https://reactjs.org)
-  </br> Axios, Firebase, React Leaflet, etc.
+  - Axios, Firebase, React Leaflet, etc.
 
 ## :pager: Desafio
 
